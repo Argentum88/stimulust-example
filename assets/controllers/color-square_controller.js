@@ -1,7 +1,11 @@
 import { Controller } from '@hotwired/stimulus';
 
 export default class extends Controller {
-    static targets = ['colorSquare'];
+    static targets = ['colorSquare', 'select'];
+
+    connect() {
+        this.selectTarget.classList.add('d-none')
+    }
 
     selectColor(event) {
         this.colorSquareTargets.forEach((element) => {
@@ -9,5 +13,6 @@ export default class extends Controller {
         })
 
         event.currentTarget.classList.add('selected')
+        this.selectTarget.value = event.currentTarget.dataset.colorId
     }
 }
