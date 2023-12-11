@@ -9,9 +9,12 @@ export default class extends Controller {
     }
 
     selectColor(event) {
-        const newColorId = event.currentTarget.dataset.colorId
+        this.setSelectColor(event.currentTarget.dataset.colorId)
+    }
+
+    setSelectColor(newColorId) {
         if (newColorId === this.selectedColorId) {
-            event.currentTarget.classList.remove('selected')
+            this.findSelectedColorSquare().classList.remove('selected')
             this.selectedColorId = null
             this.selectTarget.value = ''
             return
@@ -23,7 +26,13 @@ export default class extends Controller {
             element.classList.remove('selected')
         })
 
-        event.currentTarget.classList.add('selected')
+        this.findSelectedColorSquare().classList.add('selected')
         this.selectTarget.value = this.selectedColorId
+    }
+
+    findSelectedColorSquare() {
+        return this.colorSquareTargets.find((element) => {
+            return element.dataset.colorId === this.selectedColorId
+        })
     }
 }
