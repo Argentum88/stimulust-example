@@ -7,6 +7,9 @@ export default class extends Controller {
 
     connect() {
         this.selectTarget.classList.add('d-none')
+    }
+
+    colorIdValueChanged() {
         this.setSelectColor(this.colorIdValue)
     }
 
