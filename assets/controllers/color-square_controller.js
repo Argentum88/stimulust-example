@@ -7,7 +7,7 @@ export default class extends Controller {
 
     connect() {
         this.selectTarget.classList.add('d-none')
-        console.log(this.colorIdValue);
+        this.setSelectColor(this.colorIdValue)
     }
 
     selectColor(event) {
@@ -34,7 +34,7 @@ export default class extends Controller {
 
     findSelectedColorSquare() {
         return this.colorSquareTargets.find((element) => {
-            return element.dataset.colorId === this.selectedColorId
+            return element.dataset.colorId == this.selectedColorId
         })
     }
 }
