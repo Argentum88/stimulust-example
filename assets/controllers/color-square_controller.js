@@ -1,43 +1,26 @@
 import { Controller } from '@hotwired/stimulus';
 
 export default class extends Controller {
-    selectedColorId = null;
     static targets = ['colorSquare', 'select'];
     static values = { colorId: Number };
 
     connect() {
-        this.selectTarget.classList.add('d-none')
+        this.selectTarget.classList.add('d-none');
     }
 
     colorIdValueChanged() {
-        this.setSelectColor(this.colorIdValue)
+        this.selectTarget.value = this.colorIdValue;
+        this.colorSquareTargets.forEach((element) => {
+            if (element.dataset.colorId == this.colorIdValue) {
+                element.classList.add('selected');
+            } else {
+                element.classList.remove('selected');
+            }
+        });
     }
 
     selectColor(event) {
-        this.setSelectColor(event.currentTarget.dataset.colorId)
-    }
-
-    setSelectColor(newColorId) {
-        if (newColorId === this.selectedColorId) {
-            this.findSelectedColorSquare().classList.remove('selected')
-            this.selectedColorId = null
-            this.selectTarget.value = ''
-            return
-        }
-
-        this.selectedColorId = newColorId;
-
-        this.colorSquareTargets.forEach((element) => {
-            element.classList.remove('selected')
-        })
-
-        this.findSelectedColorSquare().classList.add('selected')
-        this.selectTarget.value = this.selectedColorId
-    }
-
-    findSelectedColorSquare() {
-        return this.colorSquareTargets.find((element) => {
-            return element.dataset.colorId == this.selectedColorId
-        })
+        const clickedColorId = event.currentTarget.dataset.colorId;
+        this.colorIdValue = clickedColorId == this.colorIdValue ? null : clickedColorId;
     }
 }
