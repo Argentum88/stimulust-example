@@ -1,6 +1,7 @@
 import { Controller } from '@hotwired/stimulus';
 
 export default class extends Controller {
+    static targets = ['result'];
     static values = {
         url: String,
     };
@@ -11,6 +12,6 @@ export default class extends Controller {
             preview: 1,
         });
         const response = await fetch(`${this.urlValue}?${params.toString()}`);
-        console.log(await response.text());
+        this.resultTarget.innerHTML = await response.text();
     }
 }
