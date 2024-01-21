@@ -43,7 +43,12 @@
                                 </div>
                                 <div class="col-3">
                                     <form
-                                        {{ stimulus_controller('submit-confirm') }}
+                                        {{ stimulus_controller('submit-confirm', {
+                                            title: 'Remove this item?',
+                                            icon: 'warning',
+                                            confirmButtonText: 'Yes, remove it!',
+                                            submitAsync: true,
+                                        }) }}
                                         data-action="submit-confirm#onSubmit"
                                         action="{{ path('app_cart_remove_item', {
                                             productId: item.product.id,
